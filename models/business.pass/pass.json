@@ -1,0 +1,31 @@
+{
+  "formatVersion": 1,
+  "passTypeIdentifier": "pass.com.quickcard",
+  "serialNumber": "8j23fm3",
+  "webServiceURL": "https://example.com/passes/",
+  "authenticationToken": "vxwxd7J8AlNNFPS8k0a0FfUFtq0ewzFdc",
+  "teamIdentifier": "Z3VWVZLNM8",
+  "locations": [
+    {
+      "longitude": -122.3748889,
+      "latitude": 37.6189722
+    },
+    {
+      "longitude": -122.03118,
+      "latitude": 37.33182
+    }
+  ],
+  "barcodes": [
+    {
+      "message": "123456789",
+      "format": "PKBarcodeFormatQR",
+      "messageEncoding": "iso-8859-1"
+    }
+  ],
+  "organizationName": "Quickcard",
+  "description": "Quickcard LLC.",
+  "logoText": "Quickcard",
+  "foregroundColor": "rgb(0,0,0)",
+  "backgroundColor": "rgb(255,255,255)",
+  "storeCard": {}
+}
