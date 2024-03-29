@@ -12,6 +12,14 @@ export interface BusinessPass {
   // ... other optional properties
 }
 
+export interface Contact {
+  firstName: string;
+  lastName: string;
+  workPhone: string;
+  organization: string;
+  photo: string;
+}
+
 export enum ContactType {
   LinkedIn = "LinkedIn",
   GitHub = "GitHub",

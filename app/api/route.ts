@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
 
     const stream = pass.getAsStream();
 
-    const res = new NextResponse(stream, {
+    const res = new NextResponse("Success", {
       // Create a new NextResponse for the file with the given stream from the disk
       status: 200, //STATUS 200: HTTP - Ok
       headers: new Headers({
@@ -141,9 +141,6 @@ export async function POST(request: NextRequest) {
 
     return res;
   } catch (error) {
-    console.log(error);
-    return new NextResponse(error, {
-      status: 500,
-    });
+    return NextResponse.json({ message: error, success: false });
   }
 }

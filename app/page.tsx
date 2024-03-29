@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Image, Input } from "@nextui-org/react";
-import { useForm, SubmitHandler, set } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -15,8 +15,18 @@ type Inputs = {
   employeeTitle: string;
 };
 
+type IFormInput = {
+  organizationName: string;
+  description: string;
+  logoText: string;
+  barcodeLink: string;
+  employeeStartYear: string;
+  employeeName: string;
+  employeeTitle: string;
+};
+
 // Validation
-const validateUrl = (value) => {
+const validateUrl = (value: string) => {
   const urlRegex = /^(http|https):\/\/[\w.-]+\.[\w]{2,}(\/[\w .\/?#]*?)?$/;
   if (!urlRegex.test(value)) {
     return "Please enter a valid URL (e.g., https://www.example.com).";
@@ -24,7 +34,7 @@ const validateUrl = (value) => {
   return undefined; // No error message if valid
 };
 
-const validateStartYear = (value) => {
+const validateStartYear = (value: string) => {
   // Check if it's a 4-digit number
   if (!/^\d{4}$/.test(value)) {
     return "Start year must be a 4-digit number.";

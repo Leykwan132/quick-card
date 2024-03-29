@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Contact } from "../../shared/contact";
+import { Contact } from "@/types";
 import { promises as fs } from "fs";
 
 const https = require("https");

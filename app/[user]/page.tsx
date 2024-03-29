@@ -63,12 +63,14 @@ export default function Page({ params }: { params: { user: string } }) {
   const handleAddToContact = async () => {
     try {
       const vCard = await fetchVCard();
-      const a = document.createElement("a");
-      const url = window.URL.createObjectURL(vCard);
-      a.href = url;
-      a.download = "contact.vcf";
-      a.click();
-      window.URL.revokeObjectURL(url);
+      if (vCard) {
+        const a = document.createElement("a");
+        const url = window.URL.createObjectURL(vCard);
+        a.href = url;
+        a.download = "contact.vcf";
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
     } catch (e) {
       console.log(e);
     }
