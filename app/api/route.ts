@@ -58,7 +58,7 @@ async function streamToString(stream: any) {
 //   return res;
 // }
 
-export async function POST(request: RequestWithBody) {
+export async function POST(request: NextRequest) {
   try {
     // set type for request.body
 
