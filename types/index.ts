@@ -11,3 +11,11 @@ export interface BusinessPass {
   relevantLocationLong?: number;
   // ... other optional properties
 }
+
+export enum ContactType {
+  LinkedIn = "LinkedIn",
+  GitHub = "GitHub",
+  Email = "Email",
+  Call = "Call",
+  Portfolio = "Portfolio",
+}

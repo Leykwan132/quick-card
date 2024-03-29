@@ -1,9 +1,9 @@
 "use client";
-import Image from "next/image";
-import { UserButton } from "@clerk/nextjs";
-import { Button, ButtonGroup } from "@nextui-org/react";
-import { BusinessCard } from "../types";
-import { useForm, SubmitHandler } from "react-hook-form";
+
+import { Button, Image, Input } from "@nextui-org/react";
+import { useForm, SubmitHandler, set } from "react-hook-form";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   organizationName: string;
@@ -33,6 +33,11 @@ const validateStartYear = (value) => {
 };
 
 export default function Home() {
+  const router = useRouter();
+  const [value, setValue] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentTab, setCurrentTab] = useState("home");
+  const menuItems = ["Home", "Solutions", "Pricing", "Log Out"];
   const {
     register,
     handleSubmit,
@@ -84,104 +89,125 @@ export default function Home() {
     }
   };
   return (
-    <div className=" py-3">
-      <div className="flex flex-row justify-between items-center px-5">
-        <UserButton showName="true" />
+    <div className="text-black bg-default-100 dark:bg-zinc-900 dark:text-white">
+      <div className="h-screen px-6 ">
+        <div className="flex flex-col sm:flex-row sm:justify-evenly justify-center items-center max-w-[1000px] mx-auto h-full gap-10">
+          {/* left */}
+          <div className="flex flex-col gap-6 sm:flex-1">
+            <div className="flex flex-col gap-2 text-black dark:text-white">
+              <p className="text-2xl font-bold sm:text-3xl ">
+                Your phone is the new wallet.
+              </p>
+              <p className="text-2xl font-bold sm:text-3xl">
+                Introducing Quickcard.{" "}
+              </p>
+              <p className="text-md font-extralight">
+                Get ready for a future where your phone becomes the ultimate
+                convenience and connection tool.
+              </p>
+            </div>
+            <div className="flex flex-row gap-2">
+              {" "}
+              <Input
+                type="url"
+                size="lg"
+                value={value}
+                onValueChange={setValue}
+                isInvalid={false}
+                errorMessage={""}
+                description={""}
+                startContent={
+                  <div className="flex items-center pointer-events-none">
+                    <span className="text-default-400 text-small">
+                      quickcard/{" "}
+                    </span>
+                  </div>
+                }
+              />
+              <Button color="primary" size="lg">
+                Claim
+              </Button>
+            </div>
+          </div>
+          <div className="sm:flex-1">
+            <Image
+              radius="sm"
+              alt="NextUI hero Image with delay"
+              src="/images/ip15.png"
+            />
+          </div>
+
+          {/* right */}
+        </div>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-        {/* register your input into the hook by invoking the "register" function */}
-        <div className="flex flex-col gap-2 ">
-          <label htmlFor="organizationName">organizationName</label>
-          <input
-            className="p-2 rounded-md"
-            {...register("organizationName", { required: true })}
-          />
-          {errors.organizationName && (
-            <span className="text-xs text-red-500">This field is required</span>
-          )}
-        </div>
+      <div className="h-screen px-6 text-white dark:text-black bg-zinc-900 dark:bg-slate-100">
+        <div className="flex flex-col sm:flex-row sm:justify-evenly justify-center items-center max-w-[1000px] mx-auto h-full sm:gap-10 gap-10">
+          {/* left */}
+          <div className="sm:flex-1">
+            <Image
+              radius="sm"
+              alt="NextUI hero Image with delay"
+              src="/images/wallet.png"
+            />
+          </div>
+          <div className="flex flex-col gap-6 sm:flex-1">
+            <div className="flex flex-col gap-2 text-center sm:text-right">
+              <p className="text-2xl font-bold sm:text-3xl ">Fast.</p>
+              <p className="text-md font-extralight">
+                Instant access with built-in wallet.{" "}
+              </p>
+            </div>
+          </div>
 
-        <div className="flex flex-col gap-2 ">
-          <label htmlFor="description">description</label>
-          <input
-            className="p-2 rounded-md"
-            {...register("description", { required: true })}
-          />
-          {errors.description && (
-            <span className="text-xs text-red-500">This field is required</span>
-          )}
+          {/* right */}
         </div>
+      </div>
+      <div className="h-screen px-6 ">
+        <div className="flex flex-col sm:flex-row sm:justify-evenly justify-center items-center max-w-[1000px] mx-auto h-full gap-10">
+          {/* left */}
+          <div className="flex flex-col gap-6 sm:flex-1">
+            <div className="flex flex-col gap-2 text-center text-black dark:text-white sm:text-left">
+              <p className="text-2xl font-bold sm:text-3xl ">Complete.</p>
+              <p className="text-md font-extralight">
+                Seamless integration with profile.
+              </p>
+            </div>
+          </div>
+          <div className="sm:flex-1">
+            <Image
+              radius="sm"
+              alt="NextUI hero Image with delay"
+              src="/images/profile.png"
+            />
+          </div>
 
-        <div className="flex flex-col gap-2 ">
-          <label htmlFor="logoText">logoText</label>
-          <input
-            className="p-2 rounded-md"
-            {...register("logoText", { required: true })}
-          />
-          {errors.logoText && (
-            <span className="text-xs text-red-500">This field is required</span>
-          )}
+          {/* right */}
         </div>
+      </div>
 
-        <div className="flex flex-col gap-2 ">
-          <label htmlFor="barcodeLink">barcodeLink</label>
-          <input
-            className="p-2 rounded-md"
-            {...register("barcodeLink", {
-              required: true,
-              validate: validateUrl,
-            })}
-          />
-          {errors.barcodeLink && (
-            <span className="text-xs text-red-500">
-              {errors.barcodeLink?.message}
-            </span>
-          )}
+      <div className="h-screen px-6 text-white dark:text-black bg-zinc-900 dark:bg-slate-100">
+        <div className="flex flex-col sm:flex-row sm:justify-evenly justify-center items-center max-w-[1000px] mx-auto h-full gap-10">
+          {/* left */}
+          <div className="sm:flex-1">
+            <Image
+              radius="sm"
+              alt="NextUI hero Image with delay"
+              src="/images/contact.png"
+            />
+          </div>
+          <div className="flex flex-col gap-6 sm:flex-1">
+            <div className="flex flex-col gap-2 text-center sm:text-right ">
+              <p className="text-2xl font-bold sm:text-3xl ">Simple. </p>
+              <p className="text-md font-extralight">
+                Share your contact information with ease.
+              </p>
+            </div>
+          </div>
+
+          {/* right */}
         </div>
+      </div>
 
-        <div className="flex flex-col gap-2 ">
-          <label htmlFor="employeeStartYear">employeeStartYear</label>
-          <input
-            className="p-2 rounded-md"
-            {...register("employeeStartYear", {
-              required: true,
-              validate: validateStartYear,
-            })}
-          />
-          {errors.employeeStartYear && (
-            <span className="text-xs text-red-500">
-              {errors.employeeStartYear?.message}
-            </span>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-2 ">
-          <label htmlFor="employeeName">employeeName</label>
-          <input
-            className="p-2 rounded-md"
-            {...register("employeeName", { required: true })}
-          />
-          {errors.employeeName && (
-            <span className="text-xs text-red-500">This field is required</span>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-2 ">
-          <label htmlFor="employeeTitle">employeeTitle</label>
-          <input
-            className="p-2 rounded-md"
-            {...register("employeeTitle", { required: true })}
-          />
-          {errors.employeeTitle && (
-            <span className="text-xs text-red-500">This field is required</span>
-          )}
-        </div>
-
-        <input
-          type="submit"
-          className="cursor-pointer bg-teal-500 rounded-lg p-2 text-white"
-        />
-      </form>
       <Button color="primary" onClick={handleCreateAppleWallet}>
         Add to Apple Wallet
       </Button>
@@ -189,3 +215,99 @@ export default function Home() {
     </div>
   );
 }
+
+//  TODO: redesign the form
+//  <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+//       {/* register your input into the hook by invoking the "register" function */}
+//       <div className="flex flex-col gap-2 ">
+//         <label htmlFor="organizationName">organizationName</label>
+//         <input
+//           className="p-2 rounded-md"
+//           {...register("organizationName", { required: true })}
+//         />
+//         {errors.organizationName && (
+//           <span className="text-xs text-red-500">This field is required</span>
+//         )}
+//       </div>
+
+//       <div className="flex flex-col gap-2 ">
+//         <label htmlFor="description">description</label>
+//         <input
+//           className="p-2 rounded-md"
+//           {...register("description", { required: true })}
+//         />
+//         {errors.description && (
+//           <span className="text-xs text-red-500">This field is required</span>
+//         )}
+//       </div>
+
+//       <div className="flex flex-col gap-2 ">
+//         <label htmlFor="logoText">logoText</label>
+//         <input
+//           className="p-2 rounded-md"
+//           {...register("logoText", { required: true })}
+//         />
+//         {errors.logoText && (
+//           <span className="text-xs text-red-500">This field is required</span>
+//         )}
+//       </div>
+
+//       <div className="flex flex-col gap-2 ">
+//         <label htmlFor="barcodeLink">barcodeLink</label>
+//         <input
+//           className="p-2 rounded-md"
+//           {...register("barcodeLink", {
+//             required: true,
+//             validate: validateUrl,
+//           })}
+//         />
+//         {errors.barcodeLink && (
+//           <span className="text-xs text-red-500">
+//             {errors.barcodeLink?.message}
+//           </span>
+//         )}
+//       </div>
+
+//       <div className="flex flex-col gap-2 ">
+//         <label htmlFor="employeeStartYear">employeeStartYear</label>
+//         <input
+//           className="p-2 rounded-md"
+//           {...register("employeeStartYear", {
+//             required: true,
+//             validate: validateStartYear,
+//           })}
+//         />
+//         {errors.employeeStartYear && (
+//           <span className="text-xs text-red-500">
+//             {errors.employeeStartYear?.message}
+//           </span>
+//         )}
+//       </div>
+
+//       <div className="flex flex-col gap-2 ">
+//         <label htmlFor="employeeName">employeeName</label>
+//         <input
+//           className="p-2 rounded-md"
+//           {...register("employeeName", { required: true })}
+//         />
+//         {errors.employeeName && (
+//           <span className="text-xs text-red-500">This field is required</span>
+//         )}
+//       </div>
+
+//       <div className="flex flex-col gap-2 ">
+//         <label htmlFor="employeeTitle">employeeTitle</label>
+//         <input
+//           className="p-2 rounded-md"
+//           {...register("employeeTitle", { required: true })}
+//         />
+//         {errors.employeeTitle && (
+//           <span className="text-xs text-red-500">This field is required</span>
+//         )}
+//       </div>
+
+//       <input
+//         type="submit"
+//         className="p-2 text-white bg-teal-500 rounded-lg cursor-pointer"
+//       />
+//     </form>

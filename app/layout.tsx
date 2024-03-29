@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { Providers } from "./providers";
-
+import Navigation from "@/components/Navigation";
 // authentication
 import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
+import { FaLinkedin } from "react-icons/fa";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Quickcard",
@@ -22,16 +26,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: [dark],
-      }}
-    >
-      <html lang="en" className="dark">
-        <body className={inter.className}>
-          <Providers>{children}</Providers>
-        </body>
-      </html>
+    <ClerkProvider appearance={{}}>
+      <AntdRegistry>
+        <html lang="en">
+          <body className={poppins.className}>
+            <Providers>
+              <Navigation />
+              {children}
+              <div className="flex flex-row items-center justify-between p-4 text-black bg-white dark:text-white dark:bg-slate-950">
+                <div>© Quickcard Technologies Inc. 2023</div>
+                <FaLinkedin size={28} />
+              </div>
+            </Providers>
+          </body>
+        </html>
+      </AntdRegistry>
     </ClerkProvider>
   );
 }
